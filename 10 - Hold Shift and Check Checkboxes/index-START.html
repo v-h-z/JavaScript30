@@ -96,6 +96,31 @@
   </div>
 
 <script>
+  const items = document.querySelectorAll('.item input');
+  let shiftPressed = true
+  window.addEventListener('keydown', (e) => {
+    console.log(e);
+    if (e.key === 'Shift') {
+      console.info('coucou');
+      shiftPressed = true;
+    }
+  })
+  window.addEventListener('keyup', (e) => {
+    if (e.key === 'Shift') {
+      console.info('bye-bye');
+      shiftPressed = false;
+    }
+  })
+  if (shiftPressed) {
+    console.log('hey');
+    items.forEach((item) => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        items[0].checked = !items[0].checked
+
+      });
+    });
+  }
 </script>
 </body>
 </html>
