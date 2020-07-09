@@ -96,31 +96,60 @@
   </div>
 
 <script>
-  const items = document.querySelectorAll('.item input');
-  let shiftPressed = true
-  window.addEventListener('keydown', (e) => {
-    console.log(e);
-    if (e.key === 'Shift') {
-      console.info('coucou');
-      shiftPressed = true;
-    }
-  })
-  window.addEventListener('keyup', (e) => {
-    if (e.key === 'Shift') {
-      console.info('bye-bye');
-      shiftPressed = false;
-    }
-  })
-  if (shiftPressed) {
-    console.log('hey');
-    items.forEach((item) => {
-      item.addEventListener('click', (e) => {
-        e.preventDefault();
-        items[0].checked = !items[0].checked
+  const checkboxes = document.querySelectorAll('.item input');
+  console.log(checkboxes);
+  let lastChecked;
 
-      });
-    });
+  function handleCheck(e) {
+    let inBetween = false;
+    console.log(this);
+    if (e.shiftKey && this.checked) {
+      checkboxes.forEach(checkbox => {
+        console.log(checkbox);
+        if (checkbox === this || checkbox === lastChecked) {
+          inBetween = !inBetween;
+        }
+
+        if (inBetween) {
+          checkbox.checked = true;
+        }
+      })
+    }
+
+    lastChecked = this;
+    console.log('coucou', lastChecked)
   }
+
+
+  checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
+  // let shiftPressed = true
+  // window.addEventListener('keydown', (e) => {
+  //   console.log(e);
+  //   if (e.key === 'Shift') {
+  //     console.info('coucou');
+  //     shiftPressed = true;
+  //   }
+  // })
+  // window.addEventListener('keyup', (e) => {
+  //   if (e.key === 'Shift') {
+  //     console.info('bye-bye');
+  //     shiftPressed = false;
+  //   }
+  // })
+  // if (shiftPressed) {
+  //   console.log('hey');
+  //   items.forEach((item) => {
+  //     item.addEventListener('click', (e) => {
+  //       console.log(e);
+  //       if (shiftPressed) {
+  //         e.preventDefault();
+  //         firstChecked = this.checked
+  //         console.log(this);
+  //         // items[0].checked = !items[0].checked
+  //       };
+  //     });
+  //   });
+  // }
 </script>
 </body>
 </html>
